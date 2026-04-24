@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Юля • Немецкий 🌿</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js"></script>
 <style>
 :root {
   --bg:#f5f0e8;--surface:#fffdf7;--surface2:#fef9ee;
@@ -29,17 +32,17 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .login-box p{color:var(--text-soft);font-size:1rem;margin-bottom:30px;}
 .field{margin-bottom:16px;text-align:left;}
 .field label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;letter-spacing:0.04em;}
-.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;transition:border 0.2s;}
+.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;transition:all 0.2s;}
 .field input:focus{border-color:var(--gold);}
 .remember{display:flex;align-items:center;gap:9px;font-size:0.95rem;color:var(--text-soft);margin-bottom:22px;cursor:pointer;}
 .remember input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;}
-.btn-enter{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;border:none;border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(200,151,58,0.38);transition:transform 0.15s;}
+.btn-enter{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;border:none;border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
 .btn-enter:hover{transform:translateY(-2px);}
 .login-err{color:var(--red);font-size:0.9rem;margin-top:12px;min-height:20px;font-weight:600;}
 
 /* APP */
 #app{display:none;}
-.topbar{background:var(--surface);border-bottom:2px solid var(--gold-light);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:90;box-shadow:0 2px 10px rgba(42,31,10,0.07);}
+.topbar{background:var(--surface);border-bottom:2px solid var(--gold-light);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
 .topbar-brand{font-family:'Lora',serif;font-size:1.15rem;color:var(--gold-dark);font-style:italic;}
 .topbar-right{display:flex;align-items:center;gap:8px;}
 .sync-badge{padding:5px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;transition:all 0.3s;}
@@ -53,7 +56,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 /* NAV */
 .nav{background:var(--surface);border-bottom:2px solid var(--gold-light);display:flex;overflow-x:auto;padding:0 16px;scrollbar-width:none;gap:4px;}
 .nav::-webkit-scrollbar{display:none;}
-.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.18s;}
+.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;}
 .nav-btn.on{color:var(--gold-dark);border-bottom-color:var(--gold);}
 .nav-btn:hover:not(.on){color:var(--text);background:rgba(200,151,58,0.06);}
 
@@ -78,38 +81,33 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .stat-sub{font-size:0.8rem;color:var(--text-soft);margin-top:4px;}
 
 /* LESSON */
-.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:box-shadow 0.15s;}
+.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;cursor:pointer;transition:all 0.2s;}
 .lesson-card:hover{box-shadow:var(--shadow);}
 .lesson-card.done{background:#f0f9f1;border-color:rgba(74,138,90,0.25);}
-.lesson-card.active-now{background:#e8f2ff;border-color:rgba(74,120,168,0.4);border-width:2px;}
 .lesson-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
 .lesson-time{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:var(--gold-dark);min-width:80px;}
 .lesson-name{font-weight:800;font-size:1rem;}
 .lesson-note{font-size:0.82rem;color:var(--text-soft);margin-top:2px;}
 .lesson-meta{font-size:0.8rem;color:var(--text-soft);}
-.tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;white-space:nowrap;}
+.tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;white-space:nowrap;margin-right:6px;}
 .tag-green{background:var(--green-light);color:var(--green);}
 .tag-red{background:var(--red-light);color:var(--red);}
 .tag-gold{background:var(--gold-light);color:var(--gold-dark);}
 .tag-blue{background:var(--blue-light);color:var(--blue);}
-.lesson-btns{display:flex;gap:6px;flex-wrap:wrap;}
-
-/* AUTO BANNER */
-.auto-banner{background:linear-gradient(135deg,#d4f0da,#c8edd0);border:2px solid rgba(74,138,90,0.3);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px;font-weight:700;color:var(--green);font-size:0.95rem;}
 
 /* STUDENTS */
 .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
 .student-card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--gold-light);padding:20px;box-shadow:var(--shadow);transition:transform 0.15s;}
 .student-card:hover{transform:translateY(-3px);}
 .stu-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.stu-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.25rem;color:white;font-weight:700;flex-shrink:0;}
+.stu-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.25rem;color:white;font-weight:700;flex-shrink:0;background:var(--gold);}
 .stu-name{font-weight:800;font-size:1.05rem;}
 .stu-level{display:inline-block;background:var(--gold-light);color:var(--gold-dark);padding:2px 10px;border-radius:12px;font-size:0.78rem;font-weight:700;margin-top:3px;}
 .balance-row{display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 4px;}
 .balance-eur{font-family:'Lora',serif;font-size:1.5rem;font-weight:700;}
 .balance-lessons{font-size:0.85rem;color:var(--text-soft);font-weight:600;}
 .balance-bar{height:8px;background:var(--gold-light);border-radius:4px;overflow:hidden;margin-bottom:12px;}
-.balance-fill{height:100%;border-radius:4px;transition:width 0.5s;}
+.balance-fill{height:100%;border-radius:4px;transition:width 0.5s;background:var(--gold);}
 .stu-info{font-size:0.82rem;color:var(--text-soft);margin-bottom:6px;}
 .stu-btns{display:flex;gap:7px;flex-wrap:wrap;}
 
@@ -126,7 +124,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .btn-sm{padding:6px 13px;font-size:0.82rem;}
 
 /* WEEK NAV */
-.week-nav{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;box-shadow:var(--shadow);}
+.week-nav{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .week-label{font-weight:800;font-size:1rem;}
 .nav-arrow{background:var(--gold-light);color:var(--gold-dark);border:none;border-radius:8px;padding:8px 14px;font-size:1rem;cursor:pointer;font-weight:800;transition:background 0.15s;}
 .nav-arrow:hover{background:var(--gold);color:white;}
@@ -144,19 +142,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .amount-pos{font-weight:700;color:var(--green);}
 .amount-neg{font-weight:700;color:var(--red);}
 
-/* CALENDAR */
-.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.cal-month{font-weight:800;font-size:1rem;}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
-.cal-dh{text-align:center;font-size:0.72rem;font-weight:700;text-transform:uppercase;color:var(--text-soft);padding:4px 0;}
-.cal-day{text-align:center;padding:7px 3px;border-radius:8px;font-size:0.88rem;cursor:pointer;position:relative;transition:background 0.15s;}
-.cal-day:hover{background:var(--gold-light);}
-.cal-day.is-today{background:var(--gold);color:white;font-weight:800;}
-.cal-day.has-l::after{content:'';display:block;width:6px;height:6px;background:var(--green);border-radius:50%;margin:2px auto 0;}
-.cal-day.other{color:#c8bfaa;}
-
 /* NOTES */
-.note-area{width:100%;min-height:160px;padding:16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;resize:vertical;line-height:1.7;transition:border 0.2s;}
+.note-area{width:100%;min-height:160px;padding:16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;resize:vertical;}
 .note-area:focus{border-color:var(--gold);}
 
 /* EMPTY */
@@ -172,7 +159,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .modal h2{font-family:'Lora',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:22px;}
 .f-row{margin-bottom:14px;}
 .f-row label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;}
-.f-row input,.f-row select{width:100%;padding:12px 14px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:0.98rem;color:var(--text);background:var(--surface2);outline:none;transition:border 0.2s;}
+.f-row input,.f-row select{width:100%;padding:12px 14px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:0.98rem;color:var(--text);background:var(--surface2);outline:none;}
 .f-row input:focus,.f-row select:focus{border-color:var(--gold);}
 .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
 
@@ -184,7 +171,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .loading-text{font-weight:700;color:var(--text-soft);font-size:1rem;}
 
 /* TOAST */
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:13px 22px;border-radius:14px;font-size:0.95rem;font-weight:700;z-index:9999;opacity:0;transition:all 0.3s ease;max-width:320px;text-align:center;}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:13px 22px;border-radius:14px;font-size:0.95rem;font-weight:700;z-index:600;transition:transform 0.3s;opacity:0;}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
 @media(max-width:600px){
@@ -194,7 +181,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .stats-row{grid-template-columns:1fr 1fr;}
   .modal{padding:22px 16px;}
   .stat-val{font-size:1.7rem;}
-  .lesson-card{gap:8px;}
 }
 </style>
 </head>
@@ -207,7 +193,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <!-- LOGIN -->
-<div id="login-wrap" style="display:none;">
+<div id="login-wrap">
   <div class="login-box">
     <span class="login-icon">🌸</span>
     <h1>Привет, Юля!</h1>
@@ -217,7 +203,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <input type="password" id="pwd" placeholder="••••••" autocomplete="current-password">
     </div>
     <label class="remember">
-      <input type="checkbox" id="remember"> Запомнить меня на этом устройстве
+      <input type="checkbox" id="remember"> Запомнить меня
     </label>
     <button class="btn-enter" onclick="login()">Войти →</button>
     <div class="login-err" id="lerr"></div>
@@ -250,25 +236,15 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="stat-box blue"><div class="stat-label">На неделе</div><div class="stat-val" id="s-week">0</div><div class="stat-sub">уроков</div></div>
       <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="s-debt">0€</div><div class="stat-sub">не оплачено</div></div>
     </div>
-    <div id="auto-banner"></div>
-    <div id="home-2col">
+    <div id="home-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
       <div class="card">
         <div class="card-title">⏰ Уроки сегодня</div>
-        <div id="today-list"></div>
+        <div id="today-list"><div class="empty"><div class="empty-icon">📭</div>Нет уроков сегодня</div></div>
       </div>
       <div class="card">
         <div class="card-title">📅 Календарь</div>
-        <div class="cal-head">
-          <button class="nav-arrow" onclick="calNav(-1)">‹</button>
-          <span class="cal-month" id="cal-label"></span>
-          <button class="nav-arrow" onclick="calNav(1)">›</button>
-        </div>
-        <div class="cal-grid" id="cal-grid"></div>
+        <div id="cal-grid"></div>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-title">📊 Уроков проведено</div>
-      <div id="home-stats"></div>
     </div>
   </div>
 
@@ -277,11 +253,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="sect-row">
       <div class="sect-title">📅 Расписание</div>
       <button class="btn btn-main" onclick="openModal('m-lesson')">＋ Добавить урок</button>
-    </div>
-    <div class="week-nav">
-      <button class="nav-arrow" onclick="weekNav(-1)">‹ Назад</button>
-      <span class="week-label" id="week-label"></span>
-      <button class="nav-arrow" onclick="weekNav(1)">Вперёд ›</button>
     </div>
     <div id="schedule-list"></div>
   </div>
@@ -299,15 +270,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="page" id="page-money">
     <div class="sect-title">💰 Финансы</div>
     <div class="stats-row">
-      <div class="stat-box green"><div class="stat-label">Получено</div><div class="stat-val" id="m-total">0€</div><div class="stat-sub">всего оплачено</div></div>
+      <div class="stat-box green"><div class="stat-label">Получено</div><div class="stat-val" id="m-total">0€</div><div class="stat-sub">всего</div></div>
       <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="m-debt">0€</div><div class="stat-sub">не оплачено</div></div>
-      <div class="stat-box blue"><div class="stat-label">На балансах</div><div class="stat-val" id="m-balances">0€</div><div class="stat-sub">у учеников</div></div>
     </div>
     <div class="card">
       <div class="card-title">📋 История платежей</div>
       <div style="overflow-x:auto;">
         <table class="fin-table">
-          <thead><tr><th>Дата</th><th>Ученик</th><th>Описание</th><th>Сумма</th></tr></thead>
+          <thead><tr><th>Дата</th><th>Ученик</th><th>Сумма</th></tr></thead>
           <tbody id="fin-body"></tbody>
         </table>
       </div>
@@ -320,108 +290,451 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="card">
       <textarea class="note-area" id="notes-ta" placeholder="Записывай всё — темы уроков, домашние задания, идеи..."></textarea>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px;">
-        <button class="btn btn-soft" onclick="clearNotes()">Очистить</button>
-        <button class="btn btn-main" onclick="saveNotes()">💾 Сохранить</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">⚡ Быстрые шаблоны</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:9px;">
-        <button class="btn btn-soft" onclick="addPhrase('📚 Домашнее задание:\n')">📚 Домашнее задание</button>
-        <button class="btn btn-soft" onclick="addPhrase('📌 Тема урока: ')">📌 Тема урока</button>
-        <button class="btn btn-soft" onclick="addPhrase('⚠️ Проработать: ')">⚠️ Проработать</button>
-       
-<!-- APP -->
-<div id="app">
-  <div class="topbar">
-    <div class="topbar-brand">🌿 Юля · Немецкий</div>
-    <div class="topbar-right">
-      <div class="greeting-badge" id="greeting"></div>
-      <button class="btn-logout" onclick="logout()">Выйти</button>
-    </div>
-  </div>
-  <div class="nav">
-    <button class="nav-btn on" id="nav-home" onclick="tab('home')">🏠 Главная</button>
-    <button class="nav-btn" id="nav-schedule" onclick="tab('schedule')">📅 Расписание</button>
-    <button class="nav-btn" id="nav-students" onclick="tab('students')">👩‍🎓 Ученики</button>
-    <button class="nav-btn" id="nav-money" onclick="tab('money')">💰 Деньги</button>
-    <button class="nav-btn" id="nav-notes" onclick="tab('notes')">📝 Заметки</button>
-  </div>
-
-  <!-- HOME -->
-  <div class="page on" id="page-home">
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-label">Уроков сегодня</div><div class="stat-val" id="s-today">0</div><div class="stat-sub">занятий</div></div>
-      <div class="stat-box green"><div class="stat-label">Учеников</div><div class="stat-val" id="s-students">0</div><div class="stat-sub">всего</div></div>
-      <div class="stat-box blue"><div class="stat-label">На неделе</div><div class="stat-val" id="s-week">0</div><div class="stat-sub">уроков</div></div>
-      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="s-debt">0€</div><div class="stat-sub">не оплачено</div></div>
-    </div>
-    <div id="auto-banner"></div>
-    <div id="home-2col">
-      <div class="card">
-        <div class="card-title">⏰ Уроки сегодня</div>
-        <div id="today-list"></div>
-      </div>
-      <div class="card">
-        <div class="card-title">📅 Календарь</div>
-        <div class="cal-head">
-          <button class="nav-arrow" onclick="calNav(-1)">‹</button>
-          <span class="cal-month" id="cal-label"></span>
-          <button class="nav-arrow" onclick="calNav(1)">›</button>
-        </div>
-        <div class="cal-grid" id="cal-grid"></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">📊 Уроков проведено</div>
-      <div id="home-stats"></div>
-    </div>
-  </div>
-
-  <!-- SCHEDULE -->
-  <div class="page" id="page-schedule">
-    <div class="sect-row">
-      <div class="sect-title">📅 Расписание</div>
-      <button class="btn btn-main" onclick="openModal('m-lesson')">＋ Добавить урок</button>
-    </div>
-    <div class="week-nav">
-      <button class="nav-arrow" onclick="weekNav(-1)">‹ Назад</button>
-      <span class="week-label" id="week-label"></span>
-      <button class="nav-arrow" onclick="weekNav(1)">Вперёд ›</button>
-    </div>
-    <div id="schedule-list"></div>
-  </div>
-
-  <!-- STUDENTS -->
-  <div class="page" id="page-students">
-    <div class="sect-row">
-      <div class="sect-title">👩‍🎓 Ученики</div>
-      <button class="btn btn-main" onclick="openModal('m-student')">＋ Новый ученик</button>
-    </div>
-    <div class="student-grid" id="student-grid"></div>
-  </div>
-
-  <!-- MONEY -->
-  <div class="page" id="page-money">
-    <div class="sect-title">💰 Финансы</div>
-    <div class="stats-row">
-      <div class="stat-box green"><div class="stat-label">Получено</div><div class="stat-val" id="m-total">0€</div><div class="stat-sub">всего оплачено</div></div>
-      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="m-debt">0€</div><div class="stat-sub">не оплачено</div></div>
-      <div class="stat-box blue"><div class="stat-label">На балансах</div><div class="stat-val" id="m-balances">0€</div><div class="stat-sub">у учеников</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">📋 История платежей</div>
-      <div style="overflow-x:auto;">
-        <table class="fin-table">
-          <thead><tr><th>Дата</th><th>Ученик</th><th>Описание</th><th>Сумма</th></tr></thead>
-          <tbody id="fin-body"></tbody>
-        </table>
+        <button class="btn btn-soft" onclick="saveNotes()">💾 Сохранить</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- NOTES -->
-  <div class="page" id="page-notes">
-    <div class="sect-title">📝 Заметки</div>
-    <div class="card">
+<!-- MODALS -->
+<div class="overlay" id="m-lesson">
+  <div class="modal">
+    <h2>➕ Новый урок</h2>
+    <div class="f-row">
+      <label>Дата</label>
+      <input type="date" id="l-date">
+    </div>
+    <div class="f-row">
+      <label>Время</label>
+      <input type="time" id="l-time">
+    </div>
+    <div class="f-row">
+      <label>Ученик</label>
+      <select id="l-student"></select>
+    </div>
+    <div class="f-row">
+      <label>Тема</label>
+      <input type="text" id="l-topic" placeholder="Немецкий, грамматика...">
+    </div>
+    <div class="f-row">
+      <label>Стоимость (€)</label>
+      <input type="number" id="l-cost" placeholder="50" min="0" step="0.01">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-soft" onclick="closeModal('m-lesson')">Отмена</button>
+      <button class="btn btn-main" onclick="saveLesson()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="m-student">
+  <div class="modal">
+    <h2>➕ Новый ученик</h2>
+    <div class="f-row">
+      <label>Имя</label>
+      <input type="text" id="s-name" placeholder="Александр">
+    </div>
+    <div class="f-row">
+      <label>Уровень</label>
+      <select id="s-level">
+        <option>A1</option>
+        <option>A2</option>
+        <option>B1</option>
+        <option>B2</option>
+        <option>C1</option>
+      </select>
+    </div>
+    <div class="f-row">
+      <label>Баланс (€)</label>
+      <input type="number" id="s-balance" placeholder="0" min="0" step="0.01">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-soft" onclick="closeModal('m-student')">Отмена</button>
+      <button class="btn btn-main" onclick="saveStudent()">Создать</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// Firebase Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBYqVz0ZqXqZ8NzKqXqZ8NzKqXqZ8NzKqU",
+  authDomain: "german-lessons-yulia.firebaseapp.com",
+  projectId: "german-lessons-yulia",
+  storageBucket: "german-lessons-yulia.appspot.com",
+  messagingSenderId: "123456789",
+  appId: "1:123456789:web:abcdef123456"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let currentUser = null;
+let students = [];
+let lessons = [];
+let payments = [];
+let currentPage = 'home';
+let currentWeekStart = new Date();
+
+// ==================== AUTH ====================
+async function login() {
+  const pwd = document.getElementById('pwd').value;
+  const remember = document.getElementById('remember').checked;
+  
+  if (!pwd) {
+    showError('Введи пароль');
+    return;
+  }
+
+  try {
+    // Simple password auth - replace with your actual email
+    const email = 'yulia@german.de';
+    await auth.signInWithEmailAndPassword(email, pwd);
+    if (remember) localStorage.setItem('auto_login', 'true');
+    initApp();
+  } catch (e) {
+    showError('Неверный пароль');
+  }
+}
+
+async function logout() {
+  if (confirm('Выйти из аккаунта?')) {
+    await auth.signOut();
+    localStorage.removeItem('auto_login');
+    location.reload();
+  }
+}
+
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    currentUser = user;
+    document.getElementById('login-wrap').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    setTimeout(() => initApp(), 300);
+  } else {
+    if (localStorage.getItem('auto_login')) {
+      login();
+    } else {
+      document.getElementById('loading-screen').classList.add('hidden');
+      document.getElementById('login-wrap').style.display = 'flex';
+    }
+  }
+});
+
+// ==================== DATA SYNC ====================
+async function initApp() {
+  document.getElementById('greeting').textContent = '👋 ' + (new Date().getHours() < 12 ? 'Доброе утро' : 'Добрый день');
+  
+  // Listen to real-time updates
+  db.collection('users').doc(currentUser.uid).collection('students')
+    .onSnapshot(snap => {
+      students = [];
+      snap.forEach(doc => students.push({id: doc.id, ...doc.data()}));
+      updateUI();
+    });
+
+  db.collection('users').doc(currentUser.uid).collection('lessons')
+    .onSnapshot(snap => {
+      lessons = [];
+      snap.forEach(doc => lessons.push({id: doc.id, ...doc.data()}));
+      updateUI();
+    });
+
+  db.collection('users').doc(currentUser.uid).collection('payments')
+    .onSnapshot(snap => {
+      payments = [];
+      snap.forEach(doc => payments.push({id: doc.id, ...doc.data()}));
+      updateUI();
+    });
+
+  // Load notes
+  const notesDoc = await db.collection('users').doc(currentUser.uid).collection('data').doc('notes').get();
+  if (notesDoc.exists) {
+    document.getElementById('notes-ta').value = notesDoc.data().content || '';
+  }
+
+  document.getElementById('loading-screen').classList.add('hidden');
+  updateUI();
+}
+
+// ==================== UI UPDATES ====================
+function updateUI() {
+  const today = new Date().toLocaleDateString('en-CA');
+  const todayLessons = lessons.filter(l => l.date === today);
+  
+  // Update stats
+  document.getElementById('s-today').textContent = todayLessons.length;
+  document.getElementById('s-students').textContent = students.length;
+  
+  const weekStart = getWeekStart(new Date());
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekEnd.getDate() + 7);
+  const weekLessons = lessons.filter(l => {
+    const d = new Date(l.date);
+    return d >= weekStart && d < weekEnd;
+  });
+  document.getElementById('s-week').textContent = weekLessons.length;
+  
+  const debt = students.reduce((sum, s) => sum + (Math.min(0, s.balance || 0)), 0);
+  document.getElementById('s-debt').textContent = Math.abs(debt).toFixed(2) + '€';
+  
+  // Update today's lessons
+  let html = todayLessons.length ? '' : '<div class="empty"><div class="empty-icon">📭</div>Нет уроков сегодня</div>';
+  todayLessons.sort((a, b) => a.time.localeCompare(b.time)).forEach(l => {
+    const stu = students.find(s => s.id === l.studentId);
+    html += `<div class="lesson-card">
+      <div class="lesson-time">${l.time}</div>
+      <div>
+        <div class="lesson-name">${stu?.name || 'Ученик'}</div>
+        <div class="lesson-note">${l.topic}</div>
+      </div>
+      <span class="tag tag-gold">${l.cost}€</span>
+    </div>`;
+  });
+  document.getElementById('today-list').innerHTML = html;
+  
+  // Update schedule
+  updateSchedule();
+  
+  // Update students grid
+  updateStudents();
+  
+  // Update finance
+  updateFinance();
+}
+
+function updateSchedule() {
+  let html = '';
+  const grouped = {};
+  lessons.forEach(l => {
+    if (!grouped[l.date]) grouped[l.date] = [];
+    grouped[l.date].push(l);
+  });
+  
+  Object.keys(grouped).sort().forEach(date => {
+    const d = new Date(date + 'T00:00');
+    const day = d.toLocaleDateString('ru-RU', {weekday: 'long', day: 'numeric', month: 'long'});
+    html += `<div class="day-group">
+      <div class="day-label">${day}</div>`;
+    grouped[date].sort((a, b) => a.time.localeCompare(b.time)).forEach(l => {
+      const stu = students.find(s => s.id === l.studentId);
+      html += `<div class="lesson-card">
+        <div class="lesson-time">${l.time}</div>
+        <div><div class="lesson-name">${stu?.name || 'Ученик'}</div><div class="lesson-note">${l.topic}</div></div>
+        <span class="tag tag-gold">${l.cost}€</span>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  
+  document.getElementById('schedule-list').innerHTML = html || '<div class="empty"><div class="empty-icon">📭</div>Нет уроков</div>';
+}
+
+function updateStudents() {
+  let html = '';
+  students.forEach(s => {
+    const color = ['gold', 'green', 'blue'][Math.floor(Math.random() * 3)];
+    html += `<div class="student-card">
+      <div class="stu-head">
+        <div class="stu-avatar" style="background:var(--${color})">${s.name[0].toUpperCase()}</div>
+        <div><div class="stu-name">${s.name}</div><div class="stu-level">${s.level}</div></div>
+      </div>
+      <div class="balance-row">
+        <div class="balance-eur">${(s.balance || 0).toFixed(2)}€</div>
+        <div class="balance-lessons">${lessons.filter(l => l.studentId === s.id).length} уроков</div>
+      </div>
+      <div class="balance-bar">
+        <div class="balance-fill" style="width:${Math.min(100, (s.balance || 0) / 50 * 100)}%"></div>
+      </div>
+      <button class="btn btn-sm btn-main" onclick="addPayment('${s.id}')">💳 Платёж</button>
+    </div>`;
+  });
+  document.getElementById('student-grid').innerHTML = html || '<div class="empty"><div class="empty-icon">👥</div>Нет учеников</div>';
+}
+
+function updateFinance() {
+  const total = payments.filter(p => p.amount > 0).reduce((sum, p) => sum + p.amount, 0);
+  const debt = students.reduce((sum, s) => sum + Math.min(0, s.balance || 0), 0);
+  
+  document.getElementById('m-total').textContent = total.toFixed(2) + '€';
+  document.getElementById('m-debt').textContent = Math.abs(debt).toFixed(2) + '€';
+  
+  let html = '';
+  payments.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20).forEach(p => {
+    const stu = students.find(s => s.id === p.studentId);
+    const date = new Date(p.date).toLocaleDateString('ru-RU');
+    const cls = p.amount > 0 ? 'amount-pos' : 'amount-neg';
+    html += `<tr><td>${date}</td><td>${stu?.name || '?'}</td><td class="${cls}">${(p.amount > 0 ? '+' : '') + p.amount.toFixed(2)}€</td></tr>`;
+  });
+  document.getElementById('fin-body').innerHTML = html;
+}
+
+// ==================== MODAL ACTIONS ====================
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  
+  if (id === 'm-lesson') {
+    const today = new Date().toLocaleDateString('en-CA');
+    document.getElementById('l-date').value = today;
+    document.getElementById('l-time').value = '10:00';
     
+    let opts = '';
+    students.forEach(s => opts += `<option value="${s.id}">${s.name}</option>`);
+    document.getElementById('l-student').innerHTML = opts;
+  }
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+async function saveLesson() {
+  const date = document.getElementById('l-date').value;
+  const time = document.getElementById('l-time').value;
+  const studentId = document.getElementById('l-student').value;
+  const topic = document.getElementById('l-topic').value;
+  const cost = parseFloat(document.getElementById('l-cost').value) || 0;
+  
+  if (!date || !time || !studentId || !topic || cost <= 0) {
+    showError('Заполни все поля');
+    return;
+  }
+  
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('lessons').add({
+      date, time, studentId, topic, cost,
+      createdAt: new Date()
+    });
+    
+    // Update student balance (add lesson cost as debt)
+    const stu = students.find(s => s.id === studentId);
+    if (stu) {
+      await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({
+        balance: (stu.balance || 0) - cost
+      });
+    }
+    
+    closeModal('m-lesson');
+    showToast('✅ Урок добавлен');
+    document.getElementById('l-topic').value = '';
+    document.getElementById('l-cost').value = '';
+  } catch (e) {
+    showError('Ошибка: ' + e.message);
+  }
+}
+
+async function saveStudent() {
+  const name = document.getElementById('s-name').value;
+  const level = document.getElementById('s-level').value;
+  const balance = parseFloat(document.getElementById('s-balance').value) || 0;
+  
+  if (!name) {
+    showError('Введи имя ученика');
+    return;
+  }
+  
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('students').add({
+      name, level, balance,
+      createdAt: new Date()
+    });
+    
+    closeModal('m-student');
+    showToast('✅ Ученик добавлен');
+    document.getElementById('s-name').value = '';
+    document.getElementById('s-balance').value = '0';
+  } catch (e) {
+    showError('Ошибка: ' + e.message);
+  }
+}
+
+async function addPayment(studentId) {
+  const amount = prompt('Размер платежа (€):');
+  if (!amount) return;
+  
+  const num = parseFloat(amount);
+  if (isNaN(num) || num <= 0) {
+    showError('Введи корректную сумму');
+    return;
+  }
+  
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('payments').add({
+      studentId, amount: num,
+      date: new Date().toLocaleDateString('en-CA'),
+      createdAt: new Date()
+    });
+    
+    // Update student balance
+    const stu = students.find(s => s.id === studentId);
+    if (stu) {
+      await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({
+        balance: (stu.balance || 0) + num
+      });
+    }
+    
+    showToast('✅ Платёж записан');
+  } catch (e) {
+    showError('Ошибка: ' + e.message);
+  }
+}
+
+async function saveNotes() {
+  const content = document.getElementById('notes-ta').value;
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('data').doc('notes').set({
+      content,
+      updatedAt: new Date()
+    });
+    showToast('💾 Заметки сохранены');
+  } catch (e) {
+    showError('Ошибка сохранения');
+  }
+}
+
+// ==================== NAV ====================
+function tab(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  
+  document.getElementById('page-' + name).classList.add('on');
+  document.getElementById('nav-' + name).classList.add('on');
+  currentPage = name;
+}
+
+// ==================== HELPERS ====================
+function getWeekStart(date) {
+  const d = new Date(date);
+  const day = d.getDay() || 7;
+  d.setDate(d.getDate() - day + 1);
+  return d;
+}
+
+function showError(msg) {
+  document.getElementById('lerr').textContent = msg;
+  setTimeout(() => { document.getElementById('lerr').textContent = ''; }, 3000);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Keyboard
+document.getElementById('pwd').addEventListener('keypress', e => {
+  if (e.key === 'Enter') login();
+});
+
+// Auto-hide loading after 5s (fallback)
+setTimeout(() => {
+  document.getElementById('loading-screen').classList.add('hidden');
+}, 5000);
+</script>
+</body>
+</html>
