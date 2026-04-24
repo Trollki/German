@@ -24,133 +24,94 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 
-/* LOGIN */
 #login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,#f8f0dc,#ede0c4);padding:20px;}
 .login-box{background:var(--surface);border-radius:28px;padding:48px 40px;width:min(400px,100%);box-shadow:var(--shadow-md);text-align:center;}
 .login-icon{font-size:52px;display:block;margin-bottom:10px;}
 .login-box h1{font-family:'Lora',serif;font-size:1.9rem;color:var(--gold-dark);margin-bottom:6px;}
 .login-box p{color:var(--text-soft);font-size:1rem;margin-bottom:30px;}
 .field{margin-bottom:16px;text-align:left;}
-.field label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;letter-spacing:0.04em;}
-.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;transition:all 0.2s;}
+.field label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;}
+.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;}
 .field input:focus{border-color:var(--gold);}
-.remember{display:flex;align-items:center;gap:9px;font-size:0.95rem;color:var(--text-soft);margin-bottom:22px;cursor:pointer;}
-.remember input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;}
 .btn-enter{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;border:none;border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
 .btn-enter:hover{transform:translateY(-2px);}
 .login-err{color:var(--red);font-size:0.9rem;margin-top:12px;min-height:20px;font-weight:600;}
 
-/* APP */
 #app{display:none;}
 .topbar{background:var(--surface);border-bottom:2px solid var(--gold-light);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;}
 .topbar-brand{font-family:'Lora',serif;font-size:1.15rem;color:var(--gold-dark);font-style:italic;}
 .topbar-right{display:flex;align-items:center;gap:8px;}
-.sync-badge{padding:5px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;transition:all 0.3s;}
+.sync-badge{padding:5px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;}
 .sync-ok{background:#d4edd8;color:var(--green);}
-.sync-ing{background:var(--gold-light);color:var(--gold-dark);}
-.sync-err{background:var(--red-light);color:var(--red);}
 .greeting-badge{background:var(--gold-light);color:var(--gold-dark);padding:6px 14px;border-radius:20px;font-weight:700;font-size:0.9rem;}
 .btn-logout{background:var(--red-light);color:var(--red);border:none;padding:8px 14px;border-radius:9px;font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;}
 .btn-logout:hover{background:#f0cccc;}
 
-/* NAV */
 .nav{background:var(--surface);border-bottom:2px solid var(--gold-light);display:flex;overflow-x:auto;padding:0 16px;scrollbar-width:none;gap:4px;}
 .nav::-webkit-scrollbar{display:none;}
-.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;}
+.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;border-bottom:3px solid transparent;}
 .nav-btn.on{color:var(--gold-dark);border-bottom-color:var(--gold);}
-.nav-btn:hover:not(.on){color:var(--text);background:rgba(200,151,58,0.06);}
 
-/* CONTENT */
 .page{padding:24px 20px;max-width:960px;margin:0 auto;display:none;}
 .page.on{display:block;animation:up 0.28s ease;}
 @keyframes up{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-.sect-title{font-family:'Lora',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:18px;display:flex;align-items:center;gap:9px;}
-.sect-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.sect-title{font-family:'Lora',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:18px;}
+.sect-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
 .card{background:var(--surface);border-radius:var(--r);padding:22px;box-shadow:var(--shadow);border:1.5px solid var(--border);margin-bottom:16px;}
 .card-title{font-size:1rem;font-weight:800;color:var(--text-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;}
 
-/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
 .stat-box{background:var(--surface);border-radius:var(--r);padding:18px 16px;box-shadow:var(--shadow);border-left:5px solid var(--gold);}
 .stat-box.green{border-color:var(--green);}
 .stat-box.red{border-color:var(--red);}
 .stat-box.blue{border-color:var(--blue);}
-.stat-label{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);margin-bottom:6px;}
+.stat-label{font-size:0.78rem;font-weight:700;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px;}
 .stat-val{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--text);line-height:1;}
 .stat-sub{font-size:0.8rem;color:var(--text-soft);margin-top:4px;}
 
-/* LESSON */
-.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;cursor:pointer;transition:all 0.2s;}
-.lesson-card:hover{box-shadow:var(--shadow);}
-.lesson-card.done{background:#f0f9f1;border-color:rgba(74,138,90,0.25);}
-.lesson-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .lesson-time{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:var(--gold-dark);min-width:80px;}
 .lesson-name{font-weight:800;font-size:1rem;}
-.lesson-note{font-size:0.82rem;color:var(--text-soft);margin-top:2px;}
-.lesson-meta{font-size:0.8rem;color:var(--text-soft);}
-.tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;white-space:nowrap;margin-right:6px;}
-.tag-green{background:var(--green-light);color:var(--green);}
-.tag-red{background:var(--red-light);color:var(--red);}
+.lesson-note{font-size:0.82rem;color:var(--text-soft);}
+.tag{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;margin-right:6px;}
 .tag-gold{background:var(--gold-light);color:var(--gold-dark);}
-.tag-blue{background:var(--blue-light);color:var(--blue);}
 
-/* STUDENTS */
 .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-.student-card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--gold-light);padding:20px;box-shadow:var(--shadow);transition:transform 0.15s;}
-.student-card:hover{transform:translateY(-3px);}
+.student-card{background:var(--surface);border-radius:var(--r);border:1.5px solid var(--gold-light);padding:20px;box-shadow:var(--shadow);}
 .stu-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.stu-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.25rem;color:white;font-weight:700;flex-shrink:0;background:var(--gold);}
+.stu-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Lora',serif;font-size:1.25rem;color:white;font-weight:700;background:var(--gold);}
 .stu-name{font-weight:800;font-size:1.05rem;}
 .stu-level{display:inline-block;background:var(--gold-light);color:var(--gold-dark);padding:2px 10px;border-radius:12px;font-size:0.78rem;font-weight:700;margin-top:3px;}
 .balance-row{display:flex;justify-content:space-between;align-items:baseline;margin:10px 0 4px;}
 .balance-eur{font-family:'Lora',serif;font-size:1.5rem;font-weight:700;}
-.balance-lessons{font-size:0.85rem;color:var(--text-soft);font-weight:600;}
+.balance-lessons{font-size:0.85rem;color:var(--text-soft);}
 .balance-bar{height:8px;background:var(--gold-light);border-radius:4px;overflow:hidden;margin-bottom:12px;}
-.balance-fill{height:100%;border-radius:4px;transition:width 0.5s;background:var(--gold);}
-.stu-info{font-size:0.82rem;color:var(--text-soft);margin-bottom:6px;}
-.stu-btns{display:flex;gap:7px;flex-wrap:wrap;}
+.balance-fill{height:100%;border-radius:4px;background:var(--gold);}
 
-/* BUTTONS */
 .btn{padding:9px 18px;border-radius:var(--r-sm);border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;}
-.btn-main{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;box-shadow:0 3px 14px rgba(200,151,58,0.32);}
+.btn-main{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;}
 .btn-main:hover{transform:translateY(-1px);}
 .btn-green{background:var(--green-light);color:var(--green);}
-.btn-green:hover{background:var(--green);color:white;}
 .btn-red{background:var(--red-light);color:var(--red);}
-.btn-red:hover{background:var(--red);color:white;}
 .btn-soft{background:var(--gold-light);color:var(--gold-dark);}
-.btn-soft:hover{background:var(--gold);color:white;}
 .btn-sm{padding:6px 13px;font-size:0.82rem;}
 
-/* WEEK NAV */
-.week-nav{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
-.week-label{font-weight:800;font-size:1rem;}
-.nav-arrow{background:var(--gold-light);color:var(--gold-dark);border:none;border-radius:8px;padding:8px 14px;font-size:1rem;cursor:pointer;font-weight:800;transition:background 0.15s;}
-.nav-arrow:hover{background:var(--gold);color:white;}
-
-/* DAY GROUP */
 .day-group{margin-bottom:22px;}
-.day-label{font-weight:800;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-soft);margin-bottom:8px;border-left:3px solid var(--gold);padding-left:10px;}
-.day-label.is-today{color:var(--green);border-color:var(--green);}
+.day-label{font-weight:800;font-size:0.85rem;text-transform:uppercase;color:var(--text-soft);margin-bottom:8px;border-left:3px solid var(--gold);padding-left:10px;}
 
-/* FINANCE */
 .fin-table{width:100%;border-collapse:collapse;}
-.fin-table th{text-align:left;padding:10px 14px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-soft);border-bottom:2px solid var(--gold-light);font-weight:700;}
-.fin-table td{padding:12px 14px;border-bottom:1px solid rgba(200,151,58,0.12);vertical-align:middle;font-size:0.92rem;}
-.fin-table tr:hover td{background:rgba(200,151,58,0.04);}
+.fin-table th{text-align:left;padding:10px 14px;font-size:0.78rem;text-transform:uppercase;color:var(--text-soft);border-bottom:2px solid var(--gold-light);font-weight:700;}
+.fin-table td{padding:12px 14px;border-bottom:1px solid rgba(200,151,58,0.12);}
 .amount-pos{font-weight:700;color:var(--green);}
 .amount-neg{font-weight:700;color:var(--red);}
 
-/* NOTES */
 .note-area{width:100%;min-height:160px;padding:16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;resize:vertical;}
 .note-area:focus{border-color:var(--gold);}
 
-/* EMPTY */
 .empty{text-align:center;padding:44px 20px;color:var(--text-soft);}
 .empty-icon{font-size:3rem;display:block;margin-bottom:10px;}
 
-/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(42,31,10,0.5);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;}
 .overlay.open{display:flex;animation:fadeIn 0.2s;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -163,14 +124,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .f-row input:focus,.f-row select:focus{border-color:var(--gold);}
 .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
 
-/* LOADING */
 #loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;}
 #loading-screen.hidden{display:none;}
 .spinner{width:40px;height:40px;border:4px solid var(--gold-light);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-weight:700;color:var(--text-soft);font-size:1rem;}
 
-/* TOAST */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:13px 22px;border-radius:14px;font-size:0.95rem;font-weight:700;z-index:600;transition:transform 0.3s;opacity:0;}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
@@ -180,19 +139,16 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .page{padding:16px 12px;}
   .stats-row{grid-template-columns:1fr 1fr;}
   .modal{padding:22px 16px;}
-  .stat-val{font-size:1.7rem;}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loading-screen">
   <div class="spinner"></div>
   <div class="loading-text">Загружаю данные... 🌿</div>
 </div>
 
-<!-- LOGIN -->
 <div id="login-wrap">
   <div class="login-box">
     <span class="login-icon">🌸</span>
@@ -202,15 +158,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       <label>ПАРОЛЬ</label>
       <input type="password" id="pwd" placeholder="••••••" autocomplete="current-password">
     </div>
-    <label class="remember">
-      <input type="checkbox" id="remember"> Запомнить меня
-    </label>
     <button class="btn-enter" onclick="login()">Войти →</button>
     <div class="login-err" id="lerr"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <div class="topbar">
     <div class="topbar-brand">🌿 Юля · Немецкий</div>
@@ -228,27 +180,19 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <button class="nav-btn" id="nav-notes" onclick="tab('notes')">📝 Заметки</button>
   </div>
 
-  <!-- HOME -->
   <div class="page on" id="page-home">
     <div class="stats-row">
-      <div class="stat-box"><div class="stat-label">Уроков сегодня</div><div class="stat-val" id="s-today">0</div><div class="stat-sub">занятий</div></div>
+      <div class="stat-box"><div class="stat-label">Сегодня</div><div class="stat-val" id="s-today">0</div><div class="stat-sub">уроков</div></div>
       <div class="stat-box green"><div class="stat-label">Учеников</div><div class="stat-val" id="s-students">0</div><div class="stat-sub">всего</div></div>
-      <div class="stat-box blue"><div class="stat-label">На неделе</div><div class="stat-val" id="s-week">0</div><div class="stat-sub">уроков</div></div>
-      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="s-debt">0€</div><div class="stat-sub">не оплачено</div></div>
+      <div class="stat-box blue"><div class="stat-label">Неделя</div><div class="stat-val" id="s-week">0</div><div class="stat-sub">уроков</div></div>
+      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="s-debt">0€</div></div>
     </div>
-    <div id="home-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-      <div class="card">
-        <div class="card-title">⏰ Уроки сегодня</div>
-        <div id="today-list"><div class="empty"><div class="empty-icon">📭</div>Нет уроков сегодня</div></div>
-      </div>
-      <div class="card">
-        <div class="card-title">📅 Календарь</div>
-        <div id="cal-grid"></div>
-      </div>
+    <div class="card">
+      <div class="card-title">⏰ Уроки сегодня</div>
+      <div id="today-list"></div>
     </div>
   </div>
 
-  <!-- SCHEDULE -->
   <div class="page" id="page-schedule">
     <div class="sect-row">
       <div class="sect-title">📅 Расписание</div>
@@ -257,7 +201,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div id="schedule-list"></div>
   </div>
 
-  <!-- STUDENTS -->
   <div class="page" id="page-students">
     <div class="sect-row">
       <div class="sect-title">👩‍🎓 Ученики</div>
@@ -266,15 +209,14 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="student-grid" id="student-grid"></div>
   </div>
 
-  <!-- MONEY -->
   <div class="page" id="page-money">
     <div class="sect-title">💰 Финансы</div>
     <div class="stats-row">
-      <div class="stat-box green"><div class="stat-label">Получено</div><div class="stat-val" id="m-total">0€</div><div class="stat-sub">всего</div></div>
-      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="m-debt">0€</div><div class="stat-sub">не оплачено</div></div>
+      <div class="stat-box green"><div class="stat-label">Получено</div><div class="stat-val" id="m-total">0€</div></div>
+      <div class="stat-box red"><div class="stat-label">Долг</div><div class="stat-val" id="m-debt">0€</div></div>
     </div>
     <div class="card">
-      <div class="card-title">📋 История платежей</div>
+      <div class="card-title">📋 История</div>
       <div style="overflow-x:auto;">
         <table class="fin-table">
           <thead><tr><th>Дата</th><th>Ученик</th><th>Сумма</th></tr></thead>
@@ -284,11 +226,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
   </div>
 
-  <!-- NOTES -->
   <div class="page" id="page-notes">
     <div class="sect-title">📝 Заметки</div>
     <div class="card">
-      <textarea class="note-area" id="notes-ta" placeholder="Записывай всё — темы уроков, домашние задания, идеи..."></textarea>
+      <textarea class="note-area" id="notes-ta" placeholder="Записывай всё..."></textarea>
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:12px;">
         <button class="btn btn-soft" onclick="saveNotes()">💾 Сохранить</button>
       </div>
@@ -296,7 +237,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 </div>
 
-<!-- MODALS -->
 <div class="overlay" id="m-lesson">
   <div class="modal">
     <h2>➕ Новый урок</h2>
@@ -314,7 +254,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
     <div class="f-row">
       <label>Тема</label>
-      <input type="text" id="l-topic" placeholder="Немецкий, грамматика...">
+      <input type="text" id="l-topic" placeholder="Тема...">
     </div>
     <div class="f-row">
       <label>Стоимость (€)</label>
@@ -332,7 +272,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     <h2>➕ Новый ученик</h2>
     <div class="f-row">
       <label>Имя</label>
-      <input type="text" id="s-name" placeholder="Александр">
+      <input type="text" id="s-name" placeholder="Имя...">
     </div>
     <div class="f-row">
       <label>Уровень</label>
@@ -358,7 +298,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 <div id="toast"></div>
 
 <script>
-// Firebase Configuration - REPLACE WITH YOUR CONFIG
+// FIREBASECONFIG - REPLACE THIS WITH YOUR CONFIG
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_PROJECT.firebaseapp.com",
@@ -368,7 +308,6 @@ const firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -377,24 +316,16 @@ let currentUser = null;
 let students = [];
 let lessons = [];
 let payments = [];
-let currentPage = 'home';
-let currentWeekStart = new Date();
 
-// ==================== AUTH ====================
 async function login() {
   const pwd = document.getElementById('pwd').value;
-  const remember = document.getElementById('remember').checked;
-  
   if (!pwd) {
     showError('Введи пароль');
     return;
   }
 
   try {
-    // Replace with your actual email
-    const email = 'yulia@german.de';
-    await auth.signInWithEmailAndPassword(email, pwd);
-    if (remember) localStorage.setItem('auto_login', 'true');
+    await auth.signInWithEmailAndPassword('yulia@german.de', pwd);
     initApp();
   } catch (e) {
     showError('Неверный пароль');
@@ -402,9 +333,8 @@ async function login() {
 }
 
 async function logout() {
-  if (confirm('Выйти из аккаунта?')) {
+  if (confirm('Выйти?')) {
     await auth.signOut();
-    localStorage.removeItem('auto_login');
     location.reload();
   }
 }
@@ -416,20 +346,14 @@ auth.onAuthStateChanged((user) => {
     document.getElementById('app').style.display = 'block';
     setTimeout(() => initApp(), 300);
   } else {
-    if (localStorage.getItem('auto_login')) {
-      login();
-    } else {
-      document.getElementById('loading-screen').classList.add('hidden');
-      document.getElementById('login-wrap').style.display = 'flex';
-    }
+    document.getElementById('loading-screen').classList.add('hidden');
+    document.getElementById('login-wrap').style.display = 'flex';
   }
 });
 
-// ==================== DATA SYNC ====================
 async function initApp() {
   document.getElementById('greeting').textContent = '👋 ' + (new Date().getHours() < 12 ? 'Доброе утро' : 'Добрый день');
   
-  // Listen to real-time updates
   db.collection('users').doc(currentUser.uid).collection('students')
     .onSnapshot(snap => {
       students = [];
@@ -451,7 +375,6 @@ async function initApp() {
       updateUI();
     });
 
-  // Load notes
   const notesDoc = await db.collection('users').doc(currentUser.uid).collection('data').doc('notes').get();
   if (notesDoc.exists) {
     document.getElementById('notes-ta').value = notesDoc.data().content || '';
@@ -461,16 +384,15 @@ async function initApp() {
   updateUI();
 }
 
-// ==================== UI UPDATES ====================
 function updateUI() {
   const today = new Date().toLocaleDateString('en-CA');
   const todayLessons = lessons.filter(l => l.date === today);
   
-  // Update stats
   document.getElementById('s-today').textContent = todayLessons.length;
   document.getElementById('s-students').textContent = students.length;
   
-  const weekStart = getWeekStart(new Date());
+  const weekStart = new Date();
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
   const weekEnd = new Date(weekStart);
   weekEnd.setDate(weekEnd.getDate() + 7);
   const weekLessons = lessons.filter(l => {
@@ -479,31 +401,22 @@ function updateUI() {
   });
   document.getElementById('s-week').textContent = weekLessons.length;
   
-  const debt = students.reduce((sum, s) => sum + (Math.min(0, s.balance || 0)), 0);
+  const debt = students.reduce((sum, s) => sum + Math.min(0, s.balance || 0), 0);
   document.getElementById('s-debt').textContent = Math.abs(debt).toFixed(2) + '€';
   
-  // Update today's lessons
-  let html = todayLessons.length ? '' : '<div class="empty"><div class="empty-icon">📭</div>Нет уроков сегодня</div>';
+  let html = todayLessons.length ? '' : '<div class="empty"><div class="empty-icon">📭</div>Нет уроков</div>';
   todayLessons.sort((a, b) => a.time.localeCompare(b.time)).forEach(l => {
     const stu = students.find(s => s.id === l.studentId);
     html += `<div class="lesson-card">
       <div class="lesson-time">${l.time}</div>
-      <div>
-        <div class="lesson-name">${stu?.name || 'Ученик'}</div>
-        <div class="lesson-note">${l.topic}</div>
-      </div>
+      <div><div class="lesson-name">${stu?.name || '?'}</div><div class="lesson-note">${l.topic}</div></div>
       <span class="tag tag-gold">${l.cost}€</span>
     </div>`;
   });
   document.getElementById('today-list').innerHTML = html;
   
-  // Update schedule
   updateSchedule();
-  
-  // Update students grid
   updateStudents();
-  
-  // Update finance
   updateFinance();
 }
 
@@ -518,15 +431,10 @@ function updateSchedule() {
   Object.keys(grouped).sort().forEach(date => {
     const d = new Date(date + 'T00:00');
     const day = d.toLocaleDateString('ru-RU', {weekday: 'long', day: 'numeric', month: 'long'});
-    html += `<div class="day-group">
-      <div class="day-label">${day}</div>`;
+    html += `<div class="day-group"><div class="day-label">${day}</div>`;
     grouped[date].sort((a, b) => a.time.localeCompare(b.time)).forEach(l => {
       const stu = students.find(s => s.id === l.studentId);
-      html += `<div class="lesson-card">
-        <div class="lesson-time">${l.time}</div>
-        <div><div class="lesson-name">${stu?.name || 'Ученик'}</div><div class="lesson-note">${l.topic}</div></div>
-        <span class="tag tag-gold">${l.cost}€</span>
-      </div>`;
+      html += `<div class="lesson-card"><div class="lesson-time">${l.time}</div><div><div class="lesson-name">${stu?.name || '?'}</div><div class="lesson-note">${l.topic}</div></div><span class="tag tag-gold">${l.cost}€</span></div>`;
     });
     html += '</div>';
   });
@@ -537,19 +445,13 @@ function updateSchedule() {
 function updateStudents() {
   let html = '';
   students.forEach(s => {
-    const color = ['gold', 'green', 'blue'][Math.floor(Math.random() * 3)];
     html += `<div class="student-card">
       <div class="stu-head">
-        <div class="stu-avatar" style="background:var(--${color})">${s.name[0].toUpperCase()}</div>
+        <div class="stu-avatar">${s.name[0].toUpperCase()}</div>
         <div><div class="stu-name">${s.name}</div><div class="stu-level">${s.level}</div></div>
       </div>
-      <div class="balance-row">
-        <div class="balance-eur">${(s.balance || 0).toFixed(2)}€</div>
-        <div class="balance-lessons">${lessons.filter(l => l.studentId === s.id).length} уроков</div>
-      </div>
-      <div class="balance-bar">
-        <div class="balance-fill" style="width:${Math.min(100, (s.balance || 0) / 50 * 100)}%"></div>
-      </div>
+      <div class="balance-row"><div class="balance-eur">${(s.balance || 0).toFixed(2)}€</div><div class="balance-lessons">${lessons.filter(l => l.studentId === s.id).length} уроков</div></div>
+      <div class="balance-bar"><div class="balance-fill" style="width:${Math.min(100, (s.balance || 0) / 50 * 100)}%"></div></div>
       <button class="btn btn-sm btn-main" onclick="addPayment('${s.id}')">💳 Платёж</button>
     </div>`;
   });
@@ -573,7 +475,6 @@ function updateFinance() {
   document.getElementById('fin-body').innerHTML = html;
 }
 
-// ==================== MODAL ACTIONS ====================
 function openModal(id) {
   document.getElementById(id).classList.add('open');
   
@@ -606,11 +507,9 @@ async function saveLesson() {
   
   try {
     await db.collection('users').doc(currentUser.uid).collection('lessons').add({
-      date, time, studentId, topic, cost,
-      createdAt: new Date()
+      date, time, studentId, topic, cost, createdAt: new Date()
     });
     
-    // Update student balance (add lesson cost as debt)
     const stu = students.find(s => s.id === studentId);
     if (stu) {
       await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({
@@ -633,14 +532,13 @@ async function saveStudent() {
   const balance = parseFloat(document.getElementById('s-balance').value) || 0;
   
   if (!name) {
-    showError('Введи имя ученика');
+    showError('Введи имя');
     return;
   }
   
   try {
     await db.collection('users').doc(currentUser.uid).collection('students').add({
-      name, level, balance,
-      createdAt: new Date()
+      name, level, balance, createdAt: new Date()
     });
     
     closeModal('m-student');
@@ -658,18 +556,15 @@ async function addPayment(studentId) {
   
   const num = parseFloat(amount);
   if (isNaN(num) || num <= 0) {
-    showError('Введи корректную сумму');
+    showError('Введи число');
     return;
   }
   
   try {
     await db.collection('users').doc(currentUser.uid).collection('payments').add({
-      studentId, amount: num,
-      date: new Date().toLocaleDateString('en-CA'),
-      createdAt: new Date()
+      studentId, amount: num, date: new Date().toLocaleDateString('en-CA'), createdAt: new Date()
     });
     
-    // Update student balance
     const stu = students.find(s => s.id === studentId);
     if (stu) {
       await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({
@@ -679,7 +574,7 @@ async function addPayment(studentId) {
     
     showToast('✅ Платёж записан');
   } catch (e) {
-    showError('Ошибка: ' + e.message);
+    showError('Ошибка');
   }
 }
 
@@ -687,31 +582,20 @@ async function saveNotes() {
   const content = document.getElementById('notes-ta').value;
   try {
     await db.collection('users').doc(currentUser.uid).collection('data').doc('notes').set({
-      content,
-      updatedAt: new Date()
+      content, updatedAt: new Date()
     });
-    showToast('💾 Заметки сохранены');
+    showToast('💾 Сохранено');
   } catch (e) {
-    showError('Ошибка сохранения');
+    showError('Ошибка');
   }
 }
 
-// ==================== NAV ====================
 function tab(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
   
   document.getElementById('page-' + name).classList.add('on');
   document.getElementById('nav-' + name).classList.add('on');
-  currentPage = name;
-}
-
-// ==================== HELPERS ====================
-function getWeekStart(date) {
-  const d = new Date(date);
-  const day = d.getDay() || 7;
-  d.setDate(d.getDate() - day + 1);
-  return d;
 }
 
 function showError(msg) {
@@ -726,12 +610,10 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-// Keyboard
 document.getElementById('pwd').addEventListener('keypress', e => {
   if (e.key === 'Enter') login();
 });
 
-// Auto-hide loading after 5s (fallback)
 setTimeout(() => {
   document.getElementById('loading-screen').classList.add('hidden');
 }, 5000);
