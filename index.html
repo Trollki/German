@@ -31,7 +31,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .login-box p{color:var(--text-soft);font-size:1rem;margin-bottom:30px;}
 .field{margin-bottom:16px;text-align:left;}
 .field label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;}
-.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;}
+.field input{width:100%;padding:14px 16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;transition:all 0.2s;}
 .field input:focus{border-color:var(--gold);}
 .btn-enter{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:white;border:none;border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
 .btn-enter:hover{transform:translateY(-2px);}
@@ -49,8 +49,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
 .nav{background:var(--surface);border-bottom:2px solid var(--gold-light);display:flex;overflow-x:auto;padding:0 16px;scrollbar-width:none;gap:4px;}
 .nav::-webkit-scrollbar{display:none;}
-.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;border-bottom:3px solid transparent;}
+.nav-btn{display:flex;align-items:center;gap:7px;padding:14px 18px;background:none;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;color:var(--text-soft);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;}
 .nav-btn.on{color:var(--gold-dark);border-bottom-color:var(--gold);}
+.nav-btn:hover:not(.on){color:var(--text);background:rgba(200,151,58,0.06);}
 
 .page{padding:24px 20px;max-width:960px;margin:0 auto;display:none;}
 .page.on{display:block;animation:up 0.28s ease;}
@@ -70,7 +71,9 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .stat-val{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:var(--text);line-height:1;}
 .stat-sub{font-size:0.8rem;color:var(--text-soft);margin-top:4px;}
 
-.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.lesson-card{background:var(--surface2);border:1.5px solid var(--gold-light);border-radius:var(--r-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;cursor:pointer;transition:all 0.2s;}
+.lesson-card:hover{box-shadow:var(--shadow);}
+.lesson-card.done{background:#f0f9f1;border-color:rgba(74,138,90,0.25);}
 .lesson-time{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:var(--gold-dark);min-width:80px;}
 .lesson-name{font-weight:800;font-size:1rem;}
 .lesson-note{font-size:0.82rem;color:var(--text-soft);}
@@ -102,36 +105,36 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
 .fin-table{width:100%;border-collapse:collapse;}
 .fin-table th{text-align:left;padding:10px 14px;font-size:0.78rem;text-transform:uppercase;color:var(--text-soft);border-bottom:2px solid var(--gold-light);font-weight:700;}
-.fin-table td{padding:12px 14px;border-bottom:1px solid rgba(200,151,58,0.12);}
-.amount-pos{font-weight:700;color:var(--green);}
-.amount-neg{font-weight:700;color:var(--red);}
+.fin-table td{padding:12px 14px;border-bottom:1px solid rgba(200,151,58,0.12);} 
+.amount-pos{font-weight:700;color:var(--green);} 
+.amount-neg{font-weight:700;color:var(--red);} 
 
-.note-area{width:100%;min-height:160px;padding:16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;resize:vertical;}
-.note-area:focus{border-color:var(--gold);}
+.note-area{width:100%;min-height:160px;padding:16px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:1rem;color:var(--text);background:var(--surface2);outline:none;}
+.note-area:focus{border-color:var(--gold);} 
 
-.empty{text-align:center;padding:44px 20px;color:var(--text-soft);}
-.empty-icon{font-size:3rem;display:block;margin-bottom:10px;}
+.empty{text-align:center;padding:44px 20px;color:var(--text-soft);} 
+.empty-icon{font-size:3rem;display:block;margin-bottom:10px;} 
 
-.overlay{display:none;position:fixed;inset:0;background:rgba(42,31,10,0.5);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;}
-.overlay.open{display:flex;animation:fadeIn 0.2s;}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{background:var(--surface);border-radius:24px;padding:32px;width:min(460px,100%);box-shadow:var(--shadow-md);max-height:90vh;overflow-y:auto;animation:slideUp 0.25s ease;}
-@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal h2{font-family:'Lora',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:22px;}
-.f-row{margin-bottom:14px;}
-.f-row label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;}
-.f-row input,.f-row select{width:100%;padding:12px 14px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:0.98rem;color:var(--text);background:var(--surface2);outline:none;}
-.f-row input:focus,.f-row select:focus{border-color:var(--gold);}
-.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(42,31,10,0.5);backdrop-filter:blur(4px);z-index:500;align-items:center;justify-content:center;padding:20px;} 
+.overlay.open{display:flex;animation:fadeIn 0.2s;} 
+@keyframes fadeIn{from{opacity:0}to{opacity:1}} 
+.modal{background:var(--surface);border-radius:24px;padding:32px;width:min(460px,100%);box-shadow:var(--shadow-md);max-height:90vh;overflow-y:auto;animation:slideUp 0.25s ease;} 
+@keyframes slideUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}} 
+.modal h2{font-family:'Lora',serif;font-size:1.4rem;color:var(--gold-dark);margin-bottom:22px;} 
+.f-row{margin-bottom:14px;} 
+.f-row label{display:block;font-weight:700;font-size:0.85rem;color:var(--text-soft);margin-bottom:7px;} 
+.f-row input,.f-row select{width:100%;padding:12px 14px;border:2px solid var(--gold-light);border-radius:var(--r-sm);font-family:'Nunito',sans-serif;font-size:0.98rem;color:var(--text);background:var(--surface2);outline:none;} 
+.f-row input:focus,.f-row select:focus{border-color:var(--gold);} 
+.modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;} 
 
-#loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;}
-#loading-screen.hidden{display:none;}
-.spinner{width:40px;height:40px;border:4px solid var(--gold-light);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.loading-text{font-weight:700;color:var(--text-soft);font-size:1rem;}
+#loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;} 
+#loading-screen.hidden{display:none;} 
+.spinner{width:40px;height:40px;border:4px solid var(--gold-light);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;} 
+@keyframes spin{to{transform:rotate(360deg);}} 
+.loading-text{font-weight:700;color:var(--text-soft);font-size:1rem;} 
 
-#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:13px 22px;border-radius:14px;font-size:0.95rem;font-weight:700;z-index:600;transition:transform 0.3s;opacity:0;}
-#toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:white;padding:13px 22px;border-radius:14px;font-size:0.95rem;font-weight:700;z-index:600;transition:transform 0.3s;opacity:0;} 
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1;} 
 
 @media(max-width:600px){
   .topbar{padding:0 14px;}
@@ -298,11 +301,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 <div id="toast"></div>
 
 <script>
+// --- Firebase config: вставлены реальные значения, storageBucket обновлён ---
+// Если в консоли Firebase у вас другой storageBucket, замените его здесь
 const firebaseConfig = {
   apiKey: "AIzaSyBTnRzRAj3zWy-yS_hNxxhWeI7CWLjQIBQ",
   authDomain: "german-9e4d6.firebaseapp.com",
   projectId: "german-9e4d6",
-  storageBucket: "german-9e4d6.firebasestorage.app",
+  storageBucket: "german-9e4d6.appspot.com",
   messagingSenderId: "149859142600",
   appId: "1:149859142600:web:2f90bfd8112385bf530efd",
   measurementId: "G-6H7DRXS1RM"
@@ -312,6 +317,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// Адрес для входа (если нужно поменять — отредактируйте здесь)
+const DEFAULT_EMAIL = 'yulia@german.de';
+
 let currentUser = null;
 let students = [];
 let lessons = [];
@@ -319,6 +327,7 @@ let payments = [];
 
 function showError(msg) {
   document.getElementById('lerr').textContent = msg;
+  setTimeout(() => { document.getElementById('lerr').textContent = ''; }, 3000);
 }
 
 function showToast(msg) {
@@ -332,7 +341,7 @@ async function login() {
   const pwd = document.getElementById('pwd').value;
   if (!pwd) { showError('Введи пароль'); return; }
   try {
-    await auth.signInWithEmailAndPassword('yulia@german.de', pwd);
+    await auth.signInWithEmailAndPassword(DEFAULT_EMAIL, pwd);
   } catch (e) {
     showError('Неверный пароль');
   }
@@ -415,4 +424,130 @@ function updateUI() {
     const stu = students.find(s => s.id === l.studentId);
     html += `<div class="lesson-card">
       <div class="lesson-time">${l.time}</div>
-      <div><div class="lesson-name">${stu?.name || '?'}</
+      <div><div class="lesson-name">${stu?.name || '?'}</div><div class="lesson-note">${l.topic}</div></div>
+      <span class="tag tag-gold">${l.cost}€</span>
+    </div>`;
+  });
+  document.getElementById('today-list').innerHTML = html;
+
+  updateSchedule();
+  updateStudents();
+  updateFinance();
+}
+
+function updateSchedule() {
+  let html = '';
+  const grouped = {};
+  lessons.forEach(l => {
+    if (!grouped[l.date]) grouped[l.date] = [];
+    grouped[l.date].push(l);
+  });
+
+  Object.keys(grouped).sort().forEach(date => {
+    const d = new Date(date + 'T00:00');
+    const day = d.toLocaleDateString('ru-RU', {weekday: 'long', day: 'numeric', month: 'long'});
+    html += `<div class="day-group"><div class="day-label">${day}</div>`;
+    grouped[date].sort((a, b) => a.time.localeCompare(b.time)).forEach(l => {
+      const stu = students.find(s => s.id === l.studentId);
+      html += `<div class="lesson-card"><div class="lesson-time">${l.time}</div><div><div class="lesson-name">${stu?.name || 'Ученик'}</div><div class="lesson-note">${l.topic}</div></div><span class="tag tag-gold">${l.cost}€</span></div>`;
+    });
+    html += '</div>';
+  });
+
+  document.getElementById('schedule-list').innerHTML = html || '<div class="empty"><div class="empty-icon">📭</div>Нет уроков</div>';
+}
+
+function updateStudents() {
+  let html = '';
+  students.forEach(s => {
+    const color = ['gold', 'green', 'blue'][Math.floor(Math.random() * 3)];
+    html += `<div class="student-card"><div class="stu-head"><div class="stu-avatar" style="background:var(--${color})">${s.name[0].toUpperCase()}</div><div><div class="stu-name">${s.name}</div><div class="stu-level">${s.level}</div></div></div><div class="balance-row"><div class="balance-eur">${(s.balance || 0).toFixed(2)}€</div><div class="balance-lessons">${lessons.filter(l => l.studentId === s.id).length} уроков</div></div><div class="balance-bar"><div class="balance-fill" style="width:${Math.min(100, (s.balance || 0) / 50 * 100)}%"></div></div><button class="btn btn-sm btn-main" onclick="addPayment('${s.id}')">💳 Платёж</button></div>`;
+  });
+  document.getElementById('student-grid').innerHTML = html || '<div class="empty"><div class="empty-icon">👥</div>Нет учеников</div>';
+}
+
+function updateFinance() {
+  const total = payments.filter(p => p.amount > 0).reduce((sum, p) => sum + p.amount, 0);
+  const debt = students.reduce((sum, s) => sum + Math.min(0, s.balance || 0), 0);
+
+  document.getElementById('m-total').textContent = total.toFixed(2) + '€';
+  document.getElementById('m-debt').textContent = Math.abs(debt).toFixed(2) + '€';
+
+  let html = '';
+  payments.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20).forEach(p => {
+    const stu = students.find(s => s.id === p.studentId);
+    const date = new Date(p.date).toLocaleDateString('ru-RU');
+    const cls = p.amount > 0 ? 'amount-pos' : 'amount-neg';
+    html += `<tr><td>${date}</td><td>${stu?.name || '?'}</td><td class="${cls}">${(p.amount > 0 ? '+' : '') + p.amount.toFixed(2)}€</td></tr>`;
+  });
+  document.getElementById('fin-body').innerHTML = html;
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  if (id === 'm-lesson') {
+    const today = new Date().toLocaleDateString('en-CA');
+    document.getElementById('l-date').value = today;
+    document.getElementById('l-time').value = '10:00';
+    let opts = '';
+    students.forEach(s => opts += `<option value="${s.id}">${s.name}</option>`);
+    document.getElementById('l-student').innerHTML = opts;
+  }
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+async function saveLesson() {
+  const date = document.getElementById('l-date').value;
+  const time = document.getElementById('l-time').value;
+  const studentId = document.getElementById('l-student').value;
+  const topic = document.getElementById('l-topic').value;
+  const cost = parseFloat(document.getElementById('l-cost').value) || 0;
+  if (!date || !time || !studentId || !topic || cost <= 0) { showError('Заполни все поля'); return; }
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('lessons').add({ date, time, studentId, topic, cost, createdAt: new Date() });
+    const stu = students.find(s => s.id === studentId);
+    if (stu) { await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({ balance: (stu.balance || 0) - cost }); }
+    closeModal('m-lesson'); showToast('✅ Урок добавлен'); document.getElementById('l-topic').value = ''; document.getElementById('l-cost').value = '';
+  } catch (e) { showError('Ошибка: ' + e.message); }
+}
+
+async function saveStudent() {
+  const name = document.getElementById('s-name').value;
+  const level = document.getElementById('s-level').value;
+  const balance = parseFloat(document.getElementById('s-balance').value) || 0;
+  if (!name) { showError('Введи имя ученика'); return; }
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('students').add({ name, level, balance, createdAt: new Date() });
+    closeModal('m-student'); showToast('✅ Ученик добавлен'); document.getElementById('s-name').value = ''; document.getElementById('s-balance').value = '0';
+  } catch (e) { showError('Ошибка: ' + e.message); }
+}
+
+async function addPayment(studentId) {
+  const amount = prompt('Размер платежа (€):'); if (!amount) return; const num = parseFloat(amount); if (isNaN(num) || num <= 0) { showError('Введи корректную сумму'); return; }
+  try {
+    await db.collection('users').doc(currentUser.uid).collection('payments').add({ studentId, amount: num, date: new Date().toLocaleDateString('en-CA'), createdAt: new Date() });
+    const stu = students.find(s => s.id === studentId);
+    if (stu) { await db.collection('users').doc(currentUser.uid).collection('students').doc(studentId).update({ balance: (stu.balance || 0) + num }); }
+    showToast('✅ Платёж записан');
+  } catch (e) { showError('Ошибка: ' + e.message); }
+}
+
+async function saveNotes() {
+  const content = document.getElementById('notes-ta').value;
+  try { await db.collection('users').doc(currentUser.uid).collection('data').doc('notes').set({ content, updatedAt: new Date() }); showToast('💾 Заметки сохранены'); } catch (e) { showError('Ошибка сохранения'); }
+}
+
+function tab(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('on'));
+  document.getElementById('page-' + name).classList.add('on');
+  document.getElementById('nav-' + name).classList.add('on');
+}
+
+setTimeout(() => { document.getElementById('loading-screen').classList.add('hidden'); }, 5000);
+</script>
+</body>
+</html>
